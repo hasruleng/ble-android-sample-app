@@ -15,6 +15,14 @@ Each file completes one item from the [CLAUDE.md](../../CLAUDE.md) study checkli
 | SC9 | Implementation-agnostic one-page notes | [sc9-one-page-notes.md](sc9-one-page-notes.md) |
 | SC10 | Cross-check against ADR-0005 GATT contract | [sc10-cross-check-adr.md](sc10-cross-check-adr.md) |
 
+---
+
+## Prerequisites
+
+**New to BLE?** Start with [BLE-CONCEPTS.md](../BLE-CONCEPTS.md) — it explains Central vs. Peripheral roles, Service UUID fundamentals, and GATT hierarchy that underpin all findings below.
+
+---
+
 ## Read in this order for a first pass
 
 **Fast overview:** SC9 (one-page notes) → SC10 (ADR cross-check).

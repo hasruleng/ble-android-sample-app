@@ -4,6 +4,8 @@
 
 **This is the pivotal finding for the parent project's Web Bluetooth relay design.**
 
+> **Background:** New to BLE concepts? Start with [BLE-CONCEPTS.md](../BLE-CONCEPTS.md) to understand Central vs. Peripheral roles and why Service UUID is the stable identifier for scanning.
+
 ---
 
 ## In the sample app: nothing visible

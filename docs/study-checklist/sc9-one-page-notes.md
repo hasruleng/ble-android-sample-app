@@ -2,6 +2,8 @@
 
 Implementation-agnostic synthesis for the PWA relay design. Everything below is language-, SDK-, and platform-neutral — only patterns, not code.
 
+> **Concepts:** See [BLE-CONCEPTS.md](../BLE-CONCEPTS.md) for Central/Peripheral roles and Service UUID fundamentals referenced throughout.
+
 ---
 
 ## Scan

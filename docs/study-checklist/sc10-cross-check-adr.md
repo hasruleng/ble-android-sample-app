@@ -4,6 +4,8 @@
 
 **Reference:** [ADR-0005](../../../Secure-datasharing-platform/ADR/adr-0005.md) — iOS/Web Bluetooth constraint and PWA-first BLE strategy.
 
+> **Concepts:** Unfamiliar with GATT terminology? See [BLE-CONCEPTS.md](../BLE-CONCEPTS.md) for Central/Peripheral roles and Service UUID fundamentals.
+
 ---
 
 ## ADR-0005 stipulations (the "GATT contract" line-item)
