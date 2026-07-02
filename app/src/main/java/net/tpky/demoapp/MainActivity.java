@@ -115,20 +115,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        switch (id) {
-
-            case R.id.nav__sign_out:
-                logOut();
-                break;
-
-            case R.id.nav__refresh:
-                refreshKeys();
-                break;
-
-            case R.id.nav__about:
-                Intent intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
-                break;
+        if (id == R.id.nav__sign_out) {
+            logOut();
+        } else if (id == R.id.nav__refresh) {
+            refreshKeys();
+        } else if (id == R.id.nav__about) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

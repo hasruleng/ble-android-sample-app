@@ -12,11 +12,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 31
+    namespace 'net.tpky.demoapp'
+    compileSdk 34
     defaultConfig {
         applicationId "net.tpky.demoapp"
-        minSdkVersion 26
-        targetSdkVersion 31
+        minSdk 26
+        targetSdk 34
         versionCode 1
         versionName "1.0"
         vectorDrawables {
@@ -27,6 +28,9 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+    buildFeatures {
+        buildConfig = true
     }
     buildTypes {
         release {
