@@ -104,6 +104,55 @@ Scan 3 (user renames):
 
 ---
 
+## Classic Bluetooth vs. BLE Scanning (the shift in mental model)
+
+If you've paired with Bluetooth devices before (headphones, speakers), the UX felt like this:
+
+```
+Classic Bluetooth (what you might be used to):
+┌──────────────────────────────────────────┐
+│ "Show all Bluetooth devices"             │
+│                                          │
+│ Available devices:                       │
+│  • My Headphones                         │
+│  • Car Audio                             │
+│  • Kitchen Speaker                       │
+│  • (other random devices)                │
+│                                          │
+│ You: Tap "My Headphones" → connects     │
+└──────────────────────────────────────────┘
+```
+
+**BLE with Service UUID filtering changes this:**
+
+```
+BLE Scanning (the new way):
+┌──────────────────────────────────────────┐
+│ Phone auto-filters:                      │
+│ "Show only devices advertising           │
+│  Service UUID = net.tpky"                │
+│                                          │
+│ Nearby devices with that UUID:           │
+│  • Front Door Lock                       │
+│  • Kitchen Lock                          │
+│  (everything else is invisible)          │
+│                                          │
+│ You: Tap "Front Door Lock" → connects   │
+└──────────────────────────────────────────┘
+```
+
+**Key difference:**
+- Classic: You search by device *name* from a big list
+- BLE: Phone *automatically filters* to show only devices with the matching UUID
+- **You don't search for the name; the UUID does the filtering for you**
+
+**Why this matters:**
+- Someone could rename their device to "Front Door Lock" (fake)
+- But they **cannot fake the Service UUID** (it's baked in firmware)
+- So UUID-based filtering is more secure and reliable than name matching
+
+---
+
 ## Full data hierarchy inside a peripheral
 
 Once the phone connects to a lock, it discovers this structure:
@@ -195,6 +244,68 @@ Phone (Central)                          Lock (Peripheral)
      │                                         │
      │──── Disconnect ────────────────────────→ │
 ```
+
+---
+
+## Auto-connect patterns (connect without UI picker)
+
+The basic flow above requires the user to tap a device from a list. But you can skip the picker by remembering the device ahead of time:
+
+### Pattern 1: Stored local state (one-time tap, then auto-connect)
+```
+First time:
+  User: Taps "Front Door Lock" in the picker
+  Phone: Stores lock's MAC or stable ID locally
+  
+Subsequent times:
+  App opens
+  Phone: Looks up stored ID → scans for that device → auto-connects
+  User: No picker shown; device connected in background
+```
+
+### Pattern 2: Server remembers user's primary device
+```
+First time:
+  User: Taps "Front Door Lock" in picker
+  Phone: Sends to server: "I'm connecting to lock physicalLockId=12345"
+  Server: Stores "this user's primary lock = physicalLockId 12345"
+
+Subsequent times:
+  App opens
+  Phone: Asks server: "What's my primary lock?"
+  Server: "physicalLockId 12345"
+  Phone: Scans, finds device with that ID, auto-connects
+```
+
+### Pattern 3: QR code + server forwarding (your scenario)
+```
+Setup time:
+  Device sticker has QR code encoding: qrDeviceId="ABC123"
+  
+First connection:
+  User: Scans QR code with phone camera
+  Phone: Sends to server: "User scanned QR code ABC123"
+  Server: Looks up: "QR ABC123 maps to physicalLockId=12345, 
+                     MAC=XX:XX:XX, Service UUID=..."
+  Server: Returns to phone: "Device info for lock physicalLockId=12345"
+  Phone: Uses that info to scan for device by Service UUID, 
+         finds it, auto-connects
+
+Later unlocks:
+  (Same as Pattern 2 from here — server remembers the device)
+```
+
+**Why Pattern 3 is useful:**
+- QR code is **offline-first**: no need to type serial numbers or MAC addresses
+- Server acts as a **device registry**: one QR code → lookup all device details
+- Scales to multiple devices per user: scan different QR codes, server returns different devices
+- **No confusion**: user doesn't pick the wrong device (server decides which physicalLockId the QR maps to)
+
+**Design considerations for your implementation:**
+1. QR code must encode a unique **qrDeviceId** or **physicalLockId**
+2. Server must have a lookup table: `qrDeviceId` → `{physicalLockId, serviceUuid, macAddressIfNeeded, ...}`
+3. Phone caches the device info locally (to work offline after first scan)
+4. Subsequent taps on the same device use cached info + auto-scan/connect
 
 ---
 
