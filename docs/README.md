@@ -70,6 +70,10 @@ graph LR
 
 → [comparison-error-handling.md](comparison-error-handling.md) — Error handling & BLE error coverage: this repo vs. the newer Tapkey App Template
 
+## External Reference (annotated)
+
+→ [ref-message-resolver.md](ref-message-resolver.md) — Annotated copy of `MessageResolver.kt` from the Tapkey App Template: full `CommandResultCode`, `ValidityError`, and exception-type mapping with PWA relay study notes
+
 ## Index
 
 | # | Use Case | File |
