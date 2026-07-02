@@ -66,6 +66,10 @@ graph LR
     BLELock -.->|"✅ gains: authorised\ntrigger command"| UC5
 ```
 
+## Comparison Report
+
+→ [comparison-error-handling.md](comparison-error-handling.md) — Error handling & BLE error coverage: this repo vs. the newer Tapkey App Template
+
 ## Index
 
 | # | Use Case | File |

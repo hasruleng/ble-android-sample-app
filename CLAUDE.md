@@ -84,6 +84,23 @@ Full use case diagrams (class + sequence + explanations) for each feature:
 
 ---
 
+## Comparison Task — Newer Template
+
+The Tapkey App Template for Android (`../tapkey-keyring-app-template-android`, clone from https://github.com/tapkey/tapkey-keyring-app-template-android) is the official replacement for this repo.
+
+For our study purpose this sample is likely sufficient — it is simpler and older, which makes the raw BLE calls easier to trace. The newer template may have more abstraction layers that obscure the GATT conversation.
+
+**One area worth checking:** error handling — retry logic on connect failure and drop-recovery (reconnect mid-session). A more mature codebase may handle these more explicitly.
+
+- [x] Clone `../tapkey-keyring-app-template-android` locally
+- [x] Compare error-handling paths: search for reconnect, retry, and BLE error callback handling in both repos
+- [x] If the template has meaningfully more complete error/retry coverage, switch study focus there for those specific patterns; otherwise stay with this repo
+- [x] Note finding here so the decision is recorded
+
+**Finding (2026-07-02):** Stay with this repo for BLE lifecycle and scan/connect flow — simpler and more traceable. Reference the template's `MessageResolver.kt` for error/result-code coverage, which is far more complete (full `CommandResultCode` + `ValidityError` + exception type mapping). **Neither repo has retry or reconnect logic** — that gap must be designed from scratch for the PWA relay. See full report: [docs/comparison-error-handling.md](docs/comparison-error-handling.md)
+
+---
+
 ## Notes Workspace
 
 (Scratch notes from study — not committed. Delete or move to parent project docs as findings settle.)
