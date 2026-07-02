@@ -56,7 +56,7 @@ The parent project's Phase 1 plan includes these study tasks:
 ## Use Case Documentation
 
 Full use case diagrams (class + sequence + explanations) for each feature:
-→ **[docs/README.md](docs/README.md)**
+→ **[docs/USE_CASES.md](docs/USE_CASES.md)**
 
 ---
 
