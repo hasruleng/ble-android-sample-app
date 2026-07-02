@@ -10,26 +10,24 @@
 The app sits between a user, a backend auth stack, and a physical BLE lock. This diagram shows what crosses each system boundary.
 
 ```mermaid
-C4Context
-    title System Context — Tapkey Android Sample App
+flowchart LR
+    User(["👤 User"])
+    OS(["⚙️ Android OS"])
 
-    Person(user, "User", "Mobile app end-user")
+    subgraph App ["  Tapkey Sample App  "]
+        A["Android App\nauth · keys · BLE"]
+    end
 
-    System_Boundary(app, "Tapkey Sample App") {
-        System(tapkeyApp, "Android App", "Manages auth, lists keys, triggers BLE locks")
-    }
+    SB[["Sample Backend\n(REST API)"]]
+    TAS[["Tapkey Auth Server\n(OAuth 2.0)"]]
+    Lock[["BLE Lock\n(GATT / TLCP)"]]
 
-    System_Ext(sampleBackend, "Sample Backend", "Issues external JWTs, serves grant metadata")
-    System_Ext(tapkeyAuth, "Tapkey Auth Server", "OAuth 2.0 — exchanges external JWT for Tapkey access token")
-    System_Ext(bleLock, "BLE Lock", "Physical Tapkey lock, communicates via GATT/TLCP")
-    System_Ext(androidOS, "Android OS", "Manages runtime BLE permissions")
-
-    Rel(user, tapkeyApp, "Creates account, triggers locks, views keys")
-    Rel(tapkeyApp, sampleBackend, "Fetches external JWT + grant metadata", "HTTPS / Basic Auth")
-    Rel(tapkeyApp, tapkeyAuth, "Exchanges JWT for access token", "OAuth 2.0")
-    Rel(tapkeyApp, bleLock, "Sends TriggerLock command", "BLE GATT / TLCP")
-    Rel(bleLock, tapkeyApp, "Returns CommandResult", "BLE GATT / TLCP")
-    Rel(androidOS, tapkeyApp, "Grants/denies BLE permissions", "Runtime permission")
+    User -->|"account, keys, trigger"| A
+    OS -->|"BLE permission result"| A
+    A -->|"JWT + grants · HTTPS"| SB
+    A -->|"token exchange · OAuth 2.0"| TAS
+    A -->|"TriggerLock command"| Lock
+    Lock -->|"CommandResult"| A
 ```
 
 ---
