@@ -27,16 +27,18 @@ The parent project specifies a **PWA relay (Web Bluetooth API)** as the funded r
 
 The parent project's Phase 1 plan includes these study tasks:
 
-- [ ] Read `App.java` and `MainActivity.java` — app lifecycle entry point
-- [ ] Read `KeyListFragment.java` + `KeyItemAdapter.java` — device list UI pattern
-- [ ] Read `SampleServerManager.java` — credential fetch before BLE (pattern only, not details)
-- [ ] Read `AuthStateManager.java` + `SampleTokenRefreshHandler.java` + `TapkeyTokenExchangeManager.java` — token exchange sequence (note the dance, ignore SDK specifics)
-- [ ] Read `ApplicationGrantDto.java` — credential/grant data model shape
-- [ ] Map full interaction: scan → picker → connect → present → result → disconnect; note which steps are SDK-opaque
-- [ ] Identify GATT service UUID(s); note scan-filter pattern
-- [ ] Document error paths: scan timeout, connect fail, credential reject, drop mid-transfer
-- [ ] Write one-page notes (scratch only, not committed) on GATT structure and scan/connect/error flow in implementation-agnostic terms
-- [ ] Cross-check notes against parent project's GATT contract: `requestDevice()` with service UUID filter, no pairing/bonding, protocol client-agnostic
+Findings for each item are recorded under [docs/study-checklist/](docs/study-checklist/README.md).
+
+- [] 1. Read `App.java` and `MainActivity.java` — app lifecycle entry point → [SC1](docs/study-checklist/sc1-app-lifecycle.md)
+- [] 2. Read `KeyListFragment.java` + `KeyItemAdapter.java` — device list UI pattern → [SC2](docs/study-checklist/sc2-device-list-ui.md)
+- [] 3. Read `SampleServerManager.java` — credential fetch before BLE → [SC3](docs/study-checklist/sc3-credential-fetch.md)
+- [] 4. Read `AuthStateManager.java` + `SampleTokenRefreshHandler.java` + `TapkeyTokenExchangeManager.java` — token exchange sequence → [SC4](docs/study-checklist/sc4-token-exchange.md)
+- [] 5. Read `ApplicationGrantDto.java` — credential/grant data model shape → [SC5](docs/study-checklist/sc5-grant-data-model.md)
+- [] 6. Map full interaction: scan → picker → connect → present → result → disconnect; note which steps are SDK-opaque → [SC6](docs/study-checklist/sc6-interaction-map.md)
+- [] 7. Identify GATT service UUID(s); note scan-filter pattern → [SC7](docs/study-checklist/sc7-gatt-uuid-scan-filter.md)
+- [] 8. Document error paths: scan timeout, connect fail, credential reject, drop mid-transfer → [SC8](docs/study-checklist/sc8-error-paths.md)
+- [] 9. Write one-page notes on GATT structure and scan/connect/error flow in implementation-agnostic terms → [SC9](docs/study-checklist/sc9-one-page-notes.md)
+- [] 10. Cross-check notes against parent project's GATT contract → [SC10](docs/study-checklist/sc10-cross-check-adr.md)
 
 ---
 

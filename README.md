@@ -38,5 +38,6 @@ flowchart LR
 |----------|---------------|
 | [CLAUDE.md](CLAUDE.md) | Study goals, checklist, project context, known limitations |
 | [docs/USE_CASES.md](docs/USE_CASES.md) | All 9 use cases with class + sequence diagrams |
+| [docs/study-checklist/](docs/study-checklist/README.md) | Phase 1 study checklist findings (SC1–SC10) |
 | [docs/comparison-error-handling.md](docs/comparison-error-handling.md) | Error handling comparison vs. Tapkey App Template |
 | [docs/ref-message-resolver.md](docs/ref-message-resolver.md) | Annotated `MessageResolver.kt` — full BLE error taxonomy |
